@@ -1,0 +1,2 @@
+twilio
+http://downloads.sourceforge.net/project/xmpppy/xmpppy/0.5.0-rc1/xmpppy-0.5.0rc1.tar.gz?r=&ts=1348040298&use_mirror=hivelocity
