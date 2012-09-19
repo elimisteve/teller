@@ -7,7 +7,9 @@ Teller is the fastest way to tell anyone anything via the command line
 1. Run these commands
 
     `git clone git://github.com/elimisteve/teller.git`
+
     `cd teller`
+
     `sudo pip install -r requirements.txt`
 
 2. Add your friend's/contactee's contact info to `contacts.js`
