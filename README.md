@@ -4,7 +4,7 @@ Teller is the fastest way to tell anyone anything via the command line
 
 ## Quickstart
 
-1. Run these commands
+1. Run these commands:
 
     `git clone git://github.com/elimisteve/teller.git`
 
@@ -12,7 +12,7 @@ Teller is the fastest way to tell anyone anything via the command line
 
     `sudo pip install -r requirements.txt`
 
-2. Add your friend's/contactee's contact info to `contacts.js`
+2. Add your friends'/contactees' contact info to `contacts.js`
 
 3. (Optional) Add your Twilio account and token credentials to
 `twilio_creds.py` to send SMS messages
@@ -23,7 +23,7 @@ define your username) to send emails
 5. Now run `teller.py`, optionally including your Gmail password in
 case you didn't want it saved to `credentials.js`, like this:
 
-    python teller.py optional_gmail_password
+    `python teller.py optional_gmail_password`
 
 That's it! Now you're ready to tell Teller who to tell what, all with
 this syntax:
