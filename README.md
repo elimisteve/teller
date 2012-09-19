@@ -10,7 +10,7 @@ Teller is the fastest way to tell anyone anything via the command line
     cd teller
     sudo pip install -r requirements.txt
 
-2. Add your friend's/contactee's contact info to `config.js`
+2. Add your friend's/contactee's contact info to `contacts.js`
 
 3. (Optional) Add your Twilio account and token credentials to
 `twilio_creds.py` to send SMS messages
@@ -51,7 +51,7 @@ this syntax:
 
 * Support sending emails via something other than Gmail 
 
-* Add Gmail contact import support so `config.js` need not be made
+* Add Gmail contact import support so `contacts.js` need not be made
   manually
 
 * Turn Teller into a SaaS product with the CLI and a Google Chrome

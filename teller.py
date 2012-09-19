@@ -12,7 +12,7 @@ VALID_MEDIUMS = ["cloakcast", "email", "gtalk", "sms"]
 USAGE = "Usage syntax:\n\n" + \
     "    bob Duuude news.ycombinator.com rocks, check it\n\n" + \
     "where 'bob' is your friend's name and the rest is the message\n" + \
-    "(and don't forget to add your friends' contact info to config.js!)"
+    "(and don't forget to add your friends' contact info to contacts.js!)"
 
 def get_email_credentials():
     creds = simplejson.loads(open(CREDS_FILE, 'r').read())
@@ -78,8 +78,8 @@ def main():
 
 if __name__ == '__main__':
     EMAIL_USERNAME, EMAIL_PASSWORD = get_email_credentials()
-    CONFIG = simplejson.loads(open('./config.js', 'r').read())
+    CONFIG = simplejson.loads(open('./contacts.js', 'r').read())
     for friend in CONFIG:
-        # Clean phone numbers in config.js into sequences of digits
+        # Clean phone numbers in contacts.js into sequences of digits
         CONFIG[friend]["sms"] = clean_phone( CONFIG[friend]["sms"] )
     main()
