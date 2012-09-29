@@ -18,11 +18,12 @@ def get_email_credentials():
     creds = simplejson.loads(open(CREDS_FILE, 'r').read())
     username = creds["username"]
     password = creds["password"]
-    if password == "" and len(sys.argv) > 1:
-        password = sys.argv[1]
-    else:
-        print "Include email password in %s or at command line" % (CREDS_FILE,)
-        sys.exit(1)
+    if password == "":
+        if len(sys.argv) > 1:
+            password = sys.argv[1]
+        else:
+            print "Include email password in %s or at command line" % (CREDS_FILE,)
+            sys.exit(1)
     return username, password
 
 
@@ -35,7 +36,7 @@ def tell(medium, friend, msg):
         # TODO: Add cloakcast support
         print "Clandestinely messaging %s via Cloakcast" % (friend,)
     elif medium == "email":
-        return send_email(EMAIL_USERNAME, EMAIL_PASSWORD, config[medium], msg)
+        return send_email(EMAIL_USERNAME, EMAIL_PASSWORD, [config[medium]], msg)
     elif medium == "gtalk":
         return send_im(EMAIL_USERNAME, EMAIL_PASSWORD, config[medium], msg)
     elif medium == "sms":
