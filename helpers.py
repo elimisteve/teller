@@ -48,11 +48,20 @@ def send_im(username, password, recipient, msg):
         return "Something bad happened! :-\ Tell elimisteve@gmail.com"
 
 
-def send_email(username, password, recipient, msg):
+def send_email(username, password, recipients, msg):
     server = smtplib.SMTP('smtp.gmail.com:587')
     server.starttls()
     server.login(username, password)
-    server.sendmail(username, recipient, msg)
+
+    body = """\
+From: %s
+To: %s
+Subject: %s
+
+%s
+""" % (username, ", ".join(recipients), "Sent via Teller", msg)
+
+    server.sendmail(username, recipients, body)
     server.quit()
     # TODO: Legitimately check for errors
     return ""
