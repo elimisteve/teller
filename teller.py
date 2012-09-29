@@ -58,22 +58,23 @@ def main():
 
         # User input contains a space, and therefore includes his/her
         # friend's name as well as the message to said friend
-        friend, msg = from_user[:first_space], from_user[first_space+1:]
-        friend = friend.lower()
+        friends, msg = from_user[:first_space], from_user[first_space+1:]
+        friends = friends.lower()
 
-        if friend in CONFIG:
-            for medium in CONFIG[friend]["try_order"]:
-                error = tell(medium, friend, msg)
-                if error:
-                    print error,
-                    print "(%s didn't work; trying next medium)" % (medium,)
-                    continue
-                else:
-                    print "Message successfully sent to", friend, "via", medium
-                    break
-        else:
-            # TODO: search CONFIG aliases
-            print "Friend '%s' not found; try again" % (friend,)
+        for friend in friends.split(','):
+            if friend in CONFIG:
+                for medium in CONFIG[friend]["try_order"]:
+                    error = tell(medium, friend, msg)
+                    if error:
+                        print error,
+                        print "(%s didn't work; trying next medium)" % (medium,)
+                        continue
+                    else:
+                        print "Message successfully sent to", friend, "via", medium
+                        break
+            else:
+                # TODO: search CONFIG aliases
+                print "Friend '%s' not found; try again" % (friend,)
 
 
 if __name__ == '__main__':
