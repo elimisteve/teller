@@ -4,26 +4,30 @@
 
 from helpers import send_sms, send_im, send_email, clean_phone
 
+import os
 import simplejson
 import sys
 
-CREDS_FILE = './credentials.js'
+# Set paths and file locations
+TELLER_PATH = os.path.dirname(os.path.realpath(__file__)) + '/'
+CREDENTIALS_FILENAME = TELLER_PATH + 'credentials.js'
+CONTACTS_FILENAME = TELLER_PATH + 'contacts.js'
+
 VALID_MEDIUMS = ["cloakcast", "email", "gtalk", "sms"]
+
 USAGE = "Usage syntax:\n\n" + \
-    "    bob Duuude news.ycombinator.com rocks, check it\n\n" + \
+    "    tell bob Duuude news.ycombinator.com rocks, check it\n\n" + \
     "where 'bob' is your friend's name and the rest is the message\n" + \
     "(and don't forget to add your friends' contact info to contacts.js!)"
 
+
 def get_email_credentials():
-    creds = simplejson.loads(open(CREDS_FILE, 'r').read())
+    creds = simplejson.loads(open(CREDENTIALS_FILENAME, 'r').read())
     username = creds["username"]
     password = creds["password"]
     if password == "":
-        if len(sys.argv) > 1:
-            password = sys.argv[1]
-        else:
-            print "Include email password in %s or at command line" % (CREDS_FILE,)
-            sys.exit(1)
+        print "Add email password to", CREDENTIALS_FILENAME
+        sys.exit(1)
     return username, password
 
 
@@ -45,42 +49,34 @@ def tell(medium, friend, msg):
 
 
 def main():
-    while True:
-        try:
-            from_user = raw_input("> ")
-        except (EOFError, KeyboardInterrupt):
-            print
-            break
-        try:
-            first_space = from_user.index(' ')
-        except ValueError:
-            print USAGE
-            continue
+    # User input contains a space, and therefore includes his/her
+    # friend's name as well as the message to said friend
+    if len(sys.argv) < 3:
+        print USAGE
+        sys.exit(1)
 
-        # User input contains a space, and therefore includes his/her
-        # friend's name as well as the message to said friend
-        friends, msg = from_user[:first_space], from_user[first_space+1:]
-        friends = friends.lower()
+    friends, msg = sys.argv[1], ' '.join(sys.argv[2:])
+    friends = friends.lower()
 
-        for friend in friends.split(','):
-            if friend in CONFIG:
-                for medium in CONFIG[friend]["try_order"]:
-                    error = tell(medium, friend, msg)
-                    if error:
-                        print error,
-                        print "(%s didn't work; trying next medium)" % (medium,)
-                        continue
-                    else:
-                        print "Message successfully sent to", friend, "via", medium
-                        break
-            else:
-                # TODO: search CONFIG aliases
-                print "Friend '%s' not found; try again" % (friend,)
+    for friend in friends.split(','):
+        if friend in CONFIG:
+            for medium in CONFIG[friend]["try_order"]:
+                error = tell(medium, friend, msg)
+                if error:
+                    print error,
+                    print "(%s didn't work; trying next medium)" % (medium,)
+                    continue
+                else:
+                    print "Message successfully sent to", friend, "via", medium
+                    break
+        else:
+            # TODO: search CONFIG aliases
+            print "Friend '%s' not found; try again" % (friend,)
 
 
 if __name__ == '__main__':
     EMAIL_USERNAME, EMAIL_PASSWORD = get_email_credentials()
-    CONFIG = simplejson.loads(open('./contacts.js', 'r').read())
+    CONFIG = simplejson.loads(open(CONTACTS_FILENAME, 'r').read())
     for friend in CONFIG:
         # Clean phone numbers in contacts.js into sequences of digits
         CONFIG[friend]["sms"] = clean_phone( CONFIG[friend]["sms"] )
