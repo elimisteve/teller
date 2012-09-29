@@ -46,6 +46,9 @@ this syntax:
   originally envisioned: symlink `teller.py` to `~/bin/tell` so one
   can run `$ tell bob See you at 3?`
 
+* Start actually using the `aliases` field within each `contacts.js`
+  entry
+
 * Add scrollback (i.e., pressing the up arrow or C-p should scroll up
   through user's command history)
 
