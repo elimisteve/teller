@@ -9,9 +9,9 @@ import simplejson
 import sys
 
 # Set paths and file locations
-TELLER_PATH = os.path.dirname(os.path.realpath(__file__)) + '/'
+TELLER_PATH          = os.path.dirname(os.path.realpath(__file__)) + '/'
 CREDENTIALS_FILENAME = TELLER_PATH + 'credentials.js'
-CONTACTS_FILENAME = TELLER_PATH + 'contacts.js'
+CONTACTS_FILENAME    = TELLER_PATH + 'contacts.js'
 
 VALID_MEDIUMS = ["cloakcast", "email", "gtalk", "sms"]
 
