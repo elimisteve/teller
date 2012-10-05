@@ -20,21 +20,39 @@ Teller is the fastest way to tell anyone anything via the command line
 4. (Optional) Add your Gmail credentials to `credentials.js` (at least
 define your username) to send emails
 
-5. Now run `teller.py`, optionally including your Gmail password in
-case you didn't want it saved to `credentials.js`, like this:
+5. Now run `teller.py`:
 
-    `python teller.py optional_gmail_password`
+    `python teller.py bob "Hey Bob! Dude, flask rocks
+    http://flask.pocoo.org/docs/quickstart/"`
 
-That's it! Now you're ready to tell Teller who to tell what, all with
-this syntax:
+where `bob` is the name of one of your friends whose contact info is
+in `contacts.js`.
 
-    bob Hey Bob! Dude, flask rocks http://flask.pocoo.org/docs/quickstart/
+6. (Optional) Symlink the `teller.py` 
+
+    chmod u+x ~/path/to/this/repo/teller/teller.py
+    ln -s ~/path/to/this/repo/teller/teller.py ~/bin/teller
+
+Ensure that `~/bin` is in your `$PATH`, then run Teller as originally
+intended!
+
+    tell bob "The inventor of the wiki just invented the federated
+    wiki! https://github.com/WardCunningham/Smallest-Federated-Wiki"
 
 
 ## TODO
 
+* Turn Teller into a web app that uses OAuth for authentication,
+  listens for commands as a GTalk bot, and more
+
+* Turn Teller into a SaaS product with the CLI and a Google Chrome
+  extension as interfaces(???)
+
 * Look at friend's shared Google Calendar and don't send IMs if s/he
   is busy
+
+* Add Gmail contact import support so `contacts.js` need not be made
+  manually
 
 * Check to see if GTalk IM recipient is online, and only send the IM
   if s/he is.  Otherwise, go on to the next medium.
@@ -42,22 +60,28 @@ this syntax:
 * Add support for `--via` syntax so we can type `bob --via sms Urgent
   message: ...`
 
-* Make Teller easily callable ad-hoc from the command line as
-  originally envisioned: symlink `teller.py` to `~/bin/tell` so one
-  can run `$ tell bob See you at 3?`
+* Add scrollback (i.e., pressing the up arrow or C-p should scroll up
+  through user's command history)
+
+* Replace the crappy, noisy `xmpppy` with a better module
+
+* Support sending emails via something other than Gmail 
+
+* Add support for the following recipients:
+
+  * "twitter", "facebook", "tent.io" or "tent.is", "irc"
+
+* Make it possible to send messages to named groups
 
 * Start actually using the `aliases` field within each `contacts.js`
   entry
 
-* Add scrollback (i.e., pressing the up arrow or C-p should scroll up
-  through user's command history)
 
-* Replace the crappy, noisy `xmpppy` with a new module
+## DONE (completed TODO items)
 
-* Support sending emails via something other than Gmail 
+* Make Teller easily callable ad-hoc from the command line as
+  originally envisioned: symlink `teller.py` to `~/bin/tell` so one
+  can run `$ tell bob "See you at 3?"`
 
-* Add Gmail contact import support so `contacts.js` need not be made
-  manually
-
-* Turn Teller into a SaaS product with the CLI and a Google Chrome
-  extension as interfaces(???)
+* Add support for sending to multiple people at once with
+  comma-separated syntax (e.g., `tell bob,aj "See you at 3?"`)
