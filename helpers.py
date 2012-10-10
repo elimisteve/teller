@@ -29,7 +29,7 @@ def send_sms(recipient, msg):
 
 def send_im(username, password, recipient, msg):
     # Create client
-    client = xmpp.Client('gmail.com')
+    client = xmpp.Client('gmail.com', debug=[])
     client.connect( ('talk.google.com', 5223) )
 
     # Connect/Authenticate
