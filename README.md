@@ -20,7 +20,12 @@ Teller is the fastest way to tell anyone anything via the command line
 4. (Optional) Add your Gmail credentials to `credentials.js` (at least
 define your username) to send emails
 
-5. Now run `teller.py`:
+5. (Optional) Create a Twitter app at <https://dev.twitter.com/apps>,
+then fill in the empty Twitter-related variables in `credentials.js`.
+(Yes, this will soon be fixed so you're tweeting with a 'Teller'
+Twitter client.)
+
+6. Now run `teller.py`:
 
     `python teller.py bob "Hey Bob! Dude, flask rocks
     http://flask.pocoo.org/docs/quickstart/"`
@@ -28,7 +33,7 @@ define your username) to send emails
 where `bob` is the name of one of your friends whose contact info is
 in `contacts.js`.
 
-6. (Optional) Symlink the `teller.py` 
+7. (Optional) Symlink the `teller.py` 
 
     chmod u+x ~/path/to/this/repo/teller/teller.py
     ln -s ~/path/to/this/repo/teller/teller.py ~/bin/teller

@@ -5,6 +5,7 @@
 from twilio.rest import TwilioRestClient
 from twilio_creds import account, token
 
+import oauth2 as oauth
 import re
 import smtplib
 import time
@@ -65,6 +66,51 @@ Subject: %s
     server.quit()
     # TODO: Legitimately check for errors
     return ""
+
+
+## NOT YET BEING USED. Doesn't quite work...
+def twitter_tokens(consumer_key, consumer_secret):
+    # Create your consumer with the proper key/secret.
+    consumer = oauth.Consumer(key=consumer_key,
+                              secret=consumer_secret)
+
+    # Request token URL for Twitter.
+    request_token_url = "http://twitter.com/oauth/request_token"
+
+    # Create our client.
+    client = oauth.Client(consumer)
+
+    # The OAuth Client request works just like httplib2 for the most part.
+    resp, content = client.request(request_token_url, "GET")
+    if resp['status'] == '200':
+        pairs = content.split('&')
+        for pair in pairs:
+            if pair.startswith('oauth_token='):
+                oauth_token = pair.split('=')[-1]
+            elif pair.startswith('oauth_token_secret='):
+                oauth_secret = pair.split('=')[-1]
+        return oauth_token, oauth_secret
+    else:
+        return content
+
+
+def send_tweet(consumer_key, consumer_secret, url, key, secret,
+              http_method="GET", post_body=None, http_headers=None):
+    consumer = oauth.Consumer(key=consumer_key, secret=consumer_secret)
+    token = oauth.Token(key=key, secret=secret)
+    client = oauth.Client(consumer, token)
+
+    resp, content = client.request(
+        url,
+        method=http_method,
+        body=post_body,
+        headers=http_headers,
+        force_auth_header=True
+    )
+    if resp['status'] == '200':
+        return ""
+    else:
+        return resp, content
 
 
 def clean_phone(num_str):

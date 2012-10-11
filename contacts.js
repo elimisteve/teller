@@ -1,18 +1,26 @@
 {
-    "aj": {
-        "aliases": ["ajvb"],
-        "try_order": ["gtalk", "email", "sms", "cloakcast"],
-        "cloakcast": "aj@cloakcast.com",
-        "email": "ajvb.wkyhu@gmail.com",
-        "gtalk": "ajvb.wkyhu@gmail.com",
-        "sms": "(805) XXX-XXXX"
+    "bob": {
+        "aliases": [],
+        "try_order": ["email", "gtalk", "sms", "cloakcast"],
+        "cloakcast": "",
+        "email": "bob@gmail.com",
+        "gtalk": "bob@gmail.com",
+        "sms": "(123) 456-7890"
     },
-    "steve": {
-        "aliases": ["elimisteve"],
-        "try_order": ["sms", "gtalk", "email", "cloakcast"],
-        "cloakcast": "steve@cloakcast.com",
-        "email": "elimisteve@gmail.com",
-        "gtalk": "elimisteve@gmail.com",
-        "sms": "(707) XXX-XXXX"
+    "alice": {
+        "aliases": [],
+        "try_order": ["email", "gtalk", "sms", "cloakcast"],
+        "cloakcast": "",
+        "email": "alice@gmail.com",
+        "gtalk": "alice@gmail.com",
+        "sms": "7894561230"
+    },
+    "twitter": {
+        "aliases": [],
+        "try_order": ["twitter"],
+        "cloakcast": "",
+        "email": "",
+        "gtalk": "",
+        "sms": ""
     }
 }

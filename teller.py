@@ -2,18 +2,22 @@
 # Steve Phillips / elimisteve
 # 2012.09.18
 
-from helpers import send_sms, send_im, send_email, clean_phone
+from helpers import send_sms, send_im, send_email, send_tweet, \
+    twitter_tokens, clean_phone
 
 import os
 import simplejson
 import sys
+import urllib
+
+creds = {}
 
 # Set paths and file locations
 TELLER_PATH          = os.path.dirname(os.path.realpath(__file__)) + '/'
 CREDENTIALS_FILENAME = TELLER_PATH + 'credentials.js'
 CONTACTS_FILENAME    = TELLER_PATH + 'contacts.js'
 
-VALID_MEDIUMS = ["cloakcast", "email", "gtalk", "sms"]
+VALID_MEDIUMS = ["cloakcast", "email", "gtalk", "sms", "twitter"]
 
 USAGE = "Usage syntax:\n\n" + \
     "    tell bob Duuude news.ycombinator.com rocks, check it\n\n" + \
@@ -22,6 +26,7 @@ USAGE = "Usage syntax:\n\n" + \
 
 
 def get_email_credentials():
+    global creds
     creds = simplejson.loads(open(CREDENTIALS_FILENAME, 'r').read())
     username = creds["username"]
     password = creds["password"]
@@ -45,6 +50,21 @@ def tell(medium, friend, msg):
         return send_im(EMAIL_USERNAME, EMAIL_PASSWORD, config[medium], msg)
     elif medium == "sms":
         return send_sms(config[medium], msg)
+    elif medium == "twitter":
+        tokens = twitter_tokens(creds["twitter_consumer_key"],
+                                creds["twitter_consumer_secret"])
+        if len(tokens) != 2:
+            return "Problem getting twitter tokens: %s" % tokens
+        # twitter_oauth_token, twitter_oauth_token_secret = tokens
+        twitter_oauth_token = creds["twitter_oauth_token"]
+        twitter_oauth_token_secret = creds["twitter_oauth_token_secret"]
+        return send_tweet(creds["twitter_consumer_key"],
+                          creds["twitter_consumer_secret"],
+                          'https://api.twitter.com/1.1/statuses/update.json',
+                          twitter_oauth_token,
+                          twitter_oauth_token_secret,
+                          http_method="POST",
+                          post_body=urllib.urlencode({'status': msg}))
     return ""
 
 
@@ -63,7 +83,7 @@ def main():
             for medium in CONFIG[friend]["try_order"]:
                 error = tell(medium, friend, msg)
                 if error:
-                    print error,
+                    print error
                     print "(%s didn't work; trying next medium)" % (medium,)
                     continue
                 else:
