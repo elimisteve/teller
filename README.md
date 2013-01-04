@@ -27,8 +27,8 @@ Twitter client.)
 
 6. Now run `teller.py`:
 
-    `python teller.py bob "Hey Bob! Dude, flask rocks
-    http://flask.pocoo.org/docs/quickstart/"`
+    `python teller.py bob 'Hey Bob! Dude, flask rocks
+    http://flask.pocoo.org/docs/quickstart/'`
 
 where `bob` is the name of one of your friends whose contact info is
 in `contacts.js`.
@@ -41,8 +41,8 @@ in `contacts.js`.
 Ensure that `~/bin` is in your `$PATH`, then run Teller as originally
 intended!
 
-    tell bob "The inventor of the wiki just invented the federated
-    wiki! https://github.com/WardCunningham/Smallest-Federated-Wiki"
+    tell bob 'The inventor of the wiki just invented the federated
+    wiki! https://github.com/WardCunningham/Smallest-Federated-Wiki'
 
 
 ## TODO
@@ -65,16 +65,17 @@ intended!
 * Add support for `--via` syntax so we can type `bob --via sms Urgent
   message: ...`
 
+  * Add `--via gpg` and `--via pgp` to send encrypted email to
+    recipient
+
 * Add scrollback (i.e., pressing the up arrow or C-p should scroll up
   through user's command history)
-
-* Replace the crappy, noisy `xmpppy` with a better module
 
 * Support sending emails via something other than Gmail 
 
 * Add support for the following recipients:
 
-  * "twitter", "facebook", "tent.io" or "tent.is", "irc"
+  * "twitter", "facebook", "tent.is", "irc"
 
 * Make it possible to send messages to named groups
 
@@ -90,3 +91,6 @@ intended!
 
 * Add support for sending to multiple people at once with
   comma-separated syntax (e.g., `tell bob,aj "See you at 3?"`)
+
+* Replace the crappy, noisy `xmpppy` with a better module (thank you
+  [longears](https://github.com/longears) for 36b5b27!)
